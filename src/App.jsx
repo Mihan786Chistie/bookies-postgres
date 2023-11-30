@@ -1,33 +1,61 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { supabase } from './db-connect'
 
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  const [books, setBooks] = useState([])
+  const [newBook, setNewBook] = useState('')
+
+  useEffect(() => {
+    fetchBook()
+  }, [])
+
+  const fetchBook = async() =>{
+    const {data, error} = await supabase
+    .from("books")
+    .select("*")
+    .order("id")
+    if(error){
+      console.error("Error fetching books: ", error)
+    }else{
+      setBooks(data);
+    }
+  }
+  const addBook = async() =>{
+    const {data, error} = await supabase
+    .from("books")
+    .insert([{title: newTitle, author: newAuthor, description: newDescription, genre: newGenre, price: newPrice, condition: newCondition, image: newImage, created_at: newCreatedAt, user_id: newUserId, available: true}])
+    .select()
+    if(error){
+      console.error("Error adding books")
+    }else{
+      setBooks(prevBooks => [...prevBooks, ...data]);
+      setNewBook('')
+    }
+  }
+  const toggleAvailability = async(id, available) =>{
+    const {error} = await supabase
+    .from("books")
+    .update({available: !available})
+    .eq('id', id)
+    if(error){
+      console.error("Error changing availability of the book")
+    }else{
+      fetchBook()
+    }
+  }
+  const deleteBook = async() =>{
+    const {error} = await supabase
+    .from("books")
+    .delete()
+    .eq('id', id)
+    if(error){
+      console.error("Error deleting book")
+    }else{
+      fetchBook()
+    }
+  }
 }
 
 export default App

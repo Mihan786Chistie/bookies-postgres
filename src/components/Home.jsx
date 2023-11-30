@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { supabase } from '../dbConnect'
 import NavBar from '../components/NavBar'
 import BookItem from './BookItem'
@@ -11,7 +11,7 @@ function Home() {
 
     useEffect(() => {
         fetchBook()
-    }, [])
+    }, []);
 
     const fetchBook = async () => {
         const { data, error } = await supabase
@@ -23,7 +23,7 @@ function Home() {
         } else {
             setBooks(data);
         }
-    }
+    };
     const addBook = async () => {
         const { data, error } = await supabase
             .from("books")
@@ -62,32 +62,20 @@ function Home() {
     console.log(books.length)
 
     return (
-        <div
-            className={"flex flex-col flex-grow p-4"}
-            style={{ height: "calc(100vh - 11.5rem)" }}
-        >
-            <div
-                className={`p-2 border flex-grow grid gap-2 ${books.length ? "auto-rows-min" : ""
-                    } grid-cols-1 h-2/3 overflow-y-scroll first:mt-8`}
-            >
-                {books.length ? (
+        <div>
+        <ul>
+            <li>
+                {
                     books.map((book) => (
                         <BookItem
                             key={book.id}
                             book={book}
                         />
                     ))
-                ) : (
-                    <span
-                        className={
-                            "h-full flex justify-center items-center"
-                        }
-                    >
-                        You do have any tasks yet!
-                    </span>
-                )}
-            </div>
+                }
+            </li>
             
+        </ul>
         </div>
     )
 

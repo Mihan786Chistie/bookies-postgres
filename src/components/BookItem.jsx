@@ -9,13 +9,10 @@ const BookItem = ({ book }) => {
             />
             <div class="p-4">
                 <h1 class="text-lg font-semibold">{book.title}</h1>
-                <p class="mt-3 text-sm text-gray-600">{book.description}</p>
-                <button
-                    type="button"
-                    class="mt-4 rounded-sm bg-black px-2.5 py-1 text-[10px] font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                >
-                    Read
-                </button>
+                <p class="mt-3 text-sm text-gray-600">{book.author}</p>
+                <p class="mt-3 text-sm text-gray-600">Condition: {book.condition}⭐</p>
+                <p class="mt-3 text-sm font-semibold">₹ {book.price}</p>
+                
             </div>
         </div>
 

@@ -62,9 +62,10 @@ function Home() {
     console.log(books.length)
 
     return (
-        <div>
-        <ul>
-            <li>
+        <div className='mt-28 px-4 lg:px24'>
+            <h2 className='text-5xl font-bold text-center'>All Books</h2>
+            <div className='grid gap-8 my-12 lg:grid-cols-4 sm:grid-cols-2md:grid-cols-3 grid-cols-1'>
+        
                 {
                     books.map((book) => (
                         <BookItem
@@ -73,9 +74,7 @@ function Home() {
                         />
                     ))
                 }
-            </li>
-            
-        </ul>
+            </div>
         </div>
     )
 

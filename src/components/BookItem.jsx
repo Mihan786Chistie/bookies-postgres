@@ -1,3 +1,4 @@
+import { Card } from 'flowbite-react'
 
 const BookItem = ({ book }) => {
     return (

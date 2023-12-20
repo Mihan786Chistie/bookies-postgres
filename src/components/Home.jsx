@@ -111,7 +111,10 @@ function Home() {
 
     return (
         <>
-        <div className='mt-28 px-4 lg:px24'>
+        <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+</style>
+        <div className='mt-15 px-4 lg:px24'>
             <h2 className='text-5xl font-bold text-center'>All Books</h2>
             <div className='grid gap-8 my-12 lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 grid-cols-1'>
                 {
@@ -133,7 +136,7 @@ function Home() {
             </div>
         </div>
 
-
+{/* 
         <div class="demo-page">
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <input type='text' placeholder='Book Title' value={newBook.title} onChange={(e) => setNewBook({ ...newBook, title: e.target.value })} />
@@ -145,12 +148,11 @@ function Home() {
                 <input type='text' placeholder='Image URL' value={newBook.image} onChange={(e) => setNewBook({ ...newBook, image: e.target.value })} />
                 <input type='text' placeholder='Created At' value={newBook.created_at} onChange={(e) => setNewBook({ ...newBook, created_at: e.target.value })} />
                 <input type='text' placeholder='User ID' value={newBook.user_id} onChange={(e) => setNewBook({ ...newBook, user_id: e.target.value })} />
-                {/* Add other input fields */}
                 <button style={{ alignItems: 'center' }} onClick={addBook}>
                     Submit
                 </button>
                 </div>
-        </div>
+        </div> */}
         </>
     )
 

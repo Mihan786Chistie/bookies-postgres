@@ -6,6 +6,7 @@ import {
 import App from '../App.jsx'
 import SellBook from "../components/SellBook.jsx";
 import Home from "../components/Home.jsx";
+import Auth from "../components/Auth.jsx";
 
   const router = createBrowserRouter([
     {
@@ -17,8 +18,12 @@ import Home from "../components/Home.jsx";
           element: <Home />
         },
         {
-            path: "/shop",
+            path: "/sell",
             element: <SellBook />
+        },
+        {
+          path: "/login",
+          element: <Auth />
         }
       ]
     },

@@ -1,7 +1,9 @@
 import { Card } from 'flowbite-react'
 import "./Book.css"
+import React from 'react'
 
-const BookItem = ({ book, genre, author }) => {
+const BookItem = ({ book }) => {
+  
   return (
     <>
       {/* <div className="card">

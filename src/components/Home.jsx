@@ -13,7 +13,7 @@ function Home() {
         title: '',
         author_id: '',
         description: '',
-        genre: '',
+        genre: 1,
         price: '',
         condition: '',
         image: '',
@@ -73,7 +73,7 @@ function Home() {
             title: '',
             author_id: '',
             description: '',
-            genre: '',
+            genre: 1,
             price: '',
             condition: '',
             image: '',
@@ -94,11 +94,11 @@ function Home() {
             fetchBook()
         }
     }
-    const deleteBook = async (id) => {
+    const deleteBook = async (book_id) => {
         const { error } = await supabase
             .from("books")
             .delete()
-            .eq('book_id', id)
+            .eq('book_id', book_id)
         if (error) {
             console.error("Error deleting book")
         } else {
@@ -116,10 +116,18 @@ function Home() {
             <div className='grid gap-8 my-12 lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 grid-cols-1'>
                 {
                     books.map((book) => (
+                        <div key={book.book_id} className='relative'>
                         <BookItem
                             key={book.book_id}
                             book={book}
                         />
+                        <button
+                className='absolute top-2 right-2 bg-red-500 text-white p-2 rounded'
+                onClick={() => deleteBook(book.book_id)}
+              >
+                Delete
+              </button>
+                        </div>
                     ))
                 }
             </div>
@@ -131,7 +139,7 @@ function Home() {
                 <input type='text' placeholder='Book Title' value={newBook.title} onChange={(e) => setNewBook({ ...newBook, title: e.target.value })} />
                 <input type='text' placeholder='Book Author' value={newBook.author_id} onChange={(e) => setNewBook({ ...newBook, author_id: e.target.value })} />
                 <textarea placeholder='Book Description' value={newBook.description} onChange={(e) => setNewBook({ ...newBook, description: e.target.value })} />
-                <input type='text' placeholder='Book Genre' value={newBook.genre} onChange={(e) => setNewBook({ ...newBook, genre: e.target.value })} />
+                <input type='number' placeholder='Book Genre' value={newBook.genre} onChange={(e) => setNewBook({ ...newBook, genre: e.target.value })} />
                 <input type='number' placeholder='Price' value={newBook.price} onChange={(e) => setNewBook({ ...newBook, price: e.target.value })} />
                 <input type='text' placeholder='Book Condition' value={newBook.condition} onChange={(e) => setNewBook({ ...newBook, condition: e.target.value })} />
                 <input type='text' placeholder='Image URL' value={newBook.image} onChange={(e) => setNewBook({ ...newBook, image: e.target.value })} />

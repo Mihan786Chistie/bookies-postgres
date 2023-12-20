@@ -54,7 +54,7 @@ function SellBook() {
                 </div>
 
                 <div class="nice-form-group">
-                    <label>Email</label>
+                    <label>Emaild</label>
                     <input type="email" placeholder="Your email" value="" />
                 </div>
 

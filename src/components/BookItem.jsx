@@ -72,8 +72,10 @@ const BookItem = ({ book }) => {
                 <img src={book.image}
                     alt="Product" class="h-80 w-72 object-cover rounded-t-xl" />
                 <div class="px-4 py-3 w-72">
-                    <span class="text-gray-400 mr-3 uppercase text-xs">{book.genrese.genre}</span>
+                    <span class="text-gray-400 mr-3 uppercase text-xs">{book.author_name}</span>
                     <p class="text-lg font-bold text-black truncate block capitalize">{book.title}</p>
+                    <p class="text-sm font-semibold text-black truncate block capitalize">{book.genre_name}</p>
+                    <p class="text-sm font-semibold text-black truncate block capitalize">Condition: {book.condition}⭐</p>
                     <div class="flex items-center">
                         <p class="text-lg font-semibold text-black cursor-auto my-3">₹{book.price}</p>
                     </div>

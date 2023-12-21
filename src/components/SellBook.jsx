@@ -2,10 +2,33 @@ import React, { useState, useEffect } from 'react'
 import { supabase } from '../dbConnect'
 import NavBar from '../components/NavBar'
 import BookItem from './BookItem'
+import "./SellBook.css"
 
 function SellBook() {
     const [books, setBooks] = useState([])
-    const [newBook, setNewBook] = useState('')
+    var date = new Date();
+
+    // Get year, month, and day part from the date
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+    // Generate yyyy-mm-dd date string
+    var formattedDate = year + "-" + month + "-" + day; 
+    const [newBook, setNewBook] = useState({
+        title: '',
+        author_id: 2,
+        description: '',
+        author_name: '',
+        genre_name: '',
+        genre: 3,
+        price: 0,
+        condition: 1,
+        image: '',
+        created_at: formattedDate,
+        user_id: '',
+        available: true,
+      })
 
     useEffect(() => {
         fetchBook()
@@ -26,76 +49,69 @@ function SellBook() {
 
     const addBook = async () => {
         const { data, error } = await supabase
-            .from("books")
-            .insert([{ title: newTitle, author: newAuthor, description: newDescription, genre: newGenre, price: newPrice, condition: newCondition, image: newImage, created_at: newCreatedAt, user_id: newUserId, available: true }])
-            .select()
+          .from('books')
+          .insert([newBook])
+          .select();
+    
         if (error) {
-            console.error("Error adding books")
+          console.error('Error adding books', error);
         } else if (Array.isArray(data)) {
-            setBooks(prevBooks => [...prevBooks, ...data]);
-            setNewBook('')
+          setBooks((prevBooks) => [...prevBooks, ...data]);
+          setNewBook({
+            title: '',
+            author_id: 2,
+            description: '',
+            author_name: '',
+            genre_name: '',
+            genre: 3,
+            price: 0,
+            condition: 1,
+            image: '',
+            created_at: formattedDate,
+            user_id: '',
+            available: true,
+          });
         }
-    }
+      };
 
 
     return (
-        <div class="demo-page">
-            <section>
-                <div class="href-target" id="input-types"></div>
-                <h1>
-
-                    Input types
-                </h1>
-                <p>All available input types are included</p>
-
-                <div class="nice-form-group">
-                    <label>Text</label>
-                    <input type="text" placeholder="Your name" value="" />
-                </div>
-
-                <div class="nice-form-group">
-                    <label>Emaild</label>
-                    <input type="email" placeholder="Your email" value="" />
-                </div>
-
-                <div class="nice-form-group">
-                    <label>Phonenumber</label>
-                    <input type="tel" placeholder="Your phonenumber" value="" />
-                </div>
-
-                <div class="nice-form-group">
-                    <label>Url</label>
-                    <input type="url" placeholder="www.google.com" value="" />
-                </div>
-
-                <div class="nice-form-group">
-                    <label>Password</label>
-                    <input type="password" placeholder="Your password" />
-                </div>
-
-                <div class="nice-form-group">
-                    <label>Search</label>
-                    <input type="search" placeholder="Search all the things" value="" />
-                </div>
-
-                <div class="nice-form-group">
-                    <label>Disabled field</label>
-                    <input type="text" disabled placeholder="Your name" value="" />
-                </div>
-                <details>
-                    <summary>
-                        <div class="toggle-code">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-code">
-                                <polyline points="16 18 22 12 16 6" />
-                                <polyline points="8 6 2 12 8 18" />
-                            </svg>
-                            Toggle code
-                        </div>
-                    </summary>
-                    <script src="https://gist.github.com/nielsVoogt/e25c9c8f2b8456bbd1239b775d21333f.js"></script>
-                </details>
-            </section>
-        </div>
+        <div class="scrollable-container">
+        <div class="wrapper">
+                <h2>Sell your Book</h2>
+                <form>
+                    <div class="input-box">
+                        <input type="text" placeholder="Enter Book Title" value={newBook.title} onChange={(e) => setNewBook({ ...newBook, title: e.target.value })} />
+                    </div>
+                    <div class="input-box">
+                        <input type="text" placeholder="Enter Book Author" value={newBook.author_name} onChange={(e) => setNewBook({ ...newBook, author_name: e.target.value })} />
+                    </div>
+                    <div class="input-box">
+                        <textarea placeholder="Enter Book Description" value={newBook.description} onChange={(e) => setNewBook({ ...newBook, description: e.target.value })} />
+                    </div>
+                    <div class="input-box">
+                        <input type="text" placeholder="Enter Book Genre" value={newBook.genre_name} onChange={(e) => setNewBook({ ...newBook, genre_name: e.target.value })} />
+                    </div>
+                    <div class="input-box">
+                        <input type="number" placeholder="Enter Book Price" value={newBook.price} onChange={(e) => setNewBook({ ...newBook, price: e.target.value })} />
+                    </div>
+                    <div class="input-box">
+                        <input type="number" placeholder="Enter Book Condition" min="1" max="5" value={newBook.condition} onChange={(e) => setNewBook({ ...newBook, condition: e.target.value })} />
+                    </div>
+                    <div class="input-box">
+                        <input type="text" placeholder="Enter Book Image" value={newBook.image} onChange={(e) => setNewBook({ ...newBook, image: e.target.value })} />
+                    </div>
+                    <div class="input-box">
+                        <input type="text" placeholder="Enter User Id" value={newBook.user_id} onChange={(e) => setNewBook({ ...newBook, user_id: e.target.value })} />
+                    </div>
+                    <div class="input-box button">
+                        <button type="button" onClick={addBook}>
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+            </div>
     )
 }
 

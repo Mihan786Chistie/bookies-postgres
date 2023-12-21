@@ -7,6 +7,7 @@ import App from '../App.jsx'
 import SellBook from "../components/SellBook.jsx";
 import Home from "../components/Home.jsx";
 import Auth from "../components/Auth.jsx";
+import CartPage from "../components/CartPage.jsx";
 
   const router = createBrowserRouter([
     {
@@ -24,6 +25,10 @@ import Auth from "../components/Auth.jsx";
         {
           path: "/login",
           element: <Auth />
+        },
+        {
+          path: "/cart",
+          element: <CartPage />
         }
       ]
     },

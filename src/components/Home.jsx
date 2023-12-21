@@ -114,7 +114,7 @@ function Home() {
         <style>
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 </style>
-        <div className='mt-15 px-4 lg:px24'>
+        <div className='relative w-full mt-15 px-4 lg:px24 bottom-50'>
             <h2 className='text-5xl font-bold text-center'>All Books</h2>
             <div className='grid gap-8 my-12 lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 grid-cols-1'>
                 {

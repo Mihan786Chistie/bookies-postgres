@@ -1,71 +1,29 @@
 import { Card } from 'flowbite-react'
 import "./Book.css"
-import React from 'react'
+import React, { useState } from 'react'
+import { supabase } from '../dbConnect';
 
 const BookItem = ({ book }) => {
-  
+  const [cart, setCart] = useState([]);
+
+  const addToCart = async() => {
+    // Assuming you have a function to add the book to the cart
+    const newItem = {
+      book_id: book.book_id,
+      book_title: book.title,
+      book_qty: 1, 
+      book_price: book.price,
+      subtotal: book.price,
+      user_id: book.user_id,
+    };
+
+    // Insert the cart item into the 'cart' table
+    const { data, error } = await supabase.from('cart').insert([newItem]);
+
+
+  };
   return (
     <>
-      {/* <div className="card">
-        <img src={book.image} alt={book.title} />
-        <article>By {book.author}</article>
-        <h3>{book.title}</h3>
-        <p>Condition: {book.condition}</p>
-        <h3>Rs. {book.price}</h3>
-      </div> */}
-
-
-{/* <div class="card">
-    <div class="card-img"><div class="img">
-      <img src={book.image} alt={book.title} />
-      </div></div>
-    <div class="card-title">{book.title}</div>
-    <div class="card-subtitle">Condition: {book.condition}</div>
-    <hr class="card-divider"/>
-    <div class="card-footer">
-        <div class="card-price"><span>₹</span> {book.price}</div>
-        <button class="card-btn">
-        </button>
-    </div>
-</div> */}
-
-{/* <div id="list-th">
-      <div class="book read">
-        <div class="cover">
-          <img src={book.image}/>
-        </div>
-        <div class="description">
-          <p class="title">{book.title}<br/>
-            <span class="author">{book.authr}</span></p>
-        </div>
-      </div>
-      </div> */}
-
-{/* <div class="product-card" id="product-card1">
-  <div class="main">
-    <img  src={book.image} alt={book.title} id="main-image1"/>
-    <div class="price" id="price1">₹{book.price}</div>
-    <div class="inline-block">
-    <h3>Large</h3>
-    <h2>{book.title}</h2>
-    </div>
-    
-  </div>
-  <div class="details" id="details1">
-    <div class="detail">
-      <p class="type">Author: </p>
-      <p class="description">{}</p>
-    </div>
-    <div class="detail">
-      <p class="type">Genre: </p>
-      <p class="description">{book.genre}</p>
-    </div>
-    <div class="detail">
-      <p class="type">Condition: </p>
-      <p class="description">{book.condition}</p>
-    </div>
-  </div>
-</div> */}
 
 <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
             <a href="#">
@@ -78,7 +36,9 @@ const BookItem = ({ book }) => {
                     <p class="text-sm font-semibold text-black truncate block capitalize">Condition: {book.condition}⭐</p>
                     <div class="flex items-center">
                         <p class="text-lg font-semibold text-black cursor-auto my-3">₹{book.price}</p>
+                        
                     </div>
+                    <button onClick={addToCart} className='bg-blue-700 font-semibold text-white py-2 rounded w-60'>Add to cart</button>
                 </div>
             </a>
         </div>
